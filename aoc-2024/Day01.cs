@@ -75,4 +75,15 @@ public class Day01
     {
         return _listTwo.FindAll(x => x == leftElement).Count;
     }
+
+    public int CalculateSimilarityScore()
+    {
+        var similarityScore = 0;
+        for (int i = 0; i < _listOne.Count; i++)
+        {
+            var leftElement = _listOne[i];
+            similarityScore += leftElement * FindNumberOfOccurrencesInRightList(leftElement);
+        }
+        return similarityScore;
+    }
 }

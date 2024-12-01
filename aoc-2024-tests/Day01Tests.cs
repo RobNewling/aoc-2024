@@ -98,4 +98,19 @@ public class Day01Tests
         // Assert
         result.Should().Be(3);
     }
+
+    [Test]
+    public void Returns_Similarity_Score()
+    {
+        // Arrange
+        var day01 = new Day01();
+        var inputData = day01.ReadInputFile("Day01_Part2_Sample.txt");
+        day01.LoadIntoLists(inputData);
+        
+        // Act
+        var result = day01.CalculateSimilarityScore();
+        
+        // Assert
+        result.Should().Be(31);
+    }
 }
