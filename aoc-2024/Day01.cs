@@ -40,4 +40,20 @@ public class Day01
     {
         return _listTwo.Count;
     }
+
+    public void SortLists()
+    {
+        _listOne.Sort();
+        _listTwo.Sort();
+    }
+
+    public List<int> GetListOne()
+    {
+        return _listOne;
+    }
+    
+    public List<int> GetListTwo()
+    {
+        return _listTwo;
+    }
 }

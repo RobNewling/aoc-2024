@@ -33,4 +33,21 @@ public class Day01Tests
         day01.GetListOneLength().Should().BeGreaterThan(0);
         day01.GetListTwoLength().Should().BeGreaterThan(0);
     }
+
+    [Test]
+    public void Sorted_List_Returns_Minimum_Value()
+    {
+        // Arrange
+        var day01 = new Day01();
+        var inputData = day01.ReadInputFile("Day01.txt");
+        day01.LoadIntoLists(inputData);
+        
+        // Act
+        day01.SortLists();
+        
+        // Assert
+        var min = day01.GetListOne().Min();
+        var firstElement = day01.GetListOne().First();
+        firstElement.Should().Be(min);
+    }
 }
