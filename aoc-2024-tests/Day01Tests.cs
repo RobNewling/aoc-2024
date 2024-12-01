@@ -66,4 +66,20 @@ public class Day01Tests
         // Assert
         result.Should().Be(14);
     }
+
+    [Test]
+    public void Sums_Total_Difference_Of_All_Elements()
+    {
+        // Arrange
+        var day01 = new Day01();
+        var inputData = day01.ReadInputFile("Day01.txt");
+        day01.LoadIntoLists(inputData);
+        day01.SortLists();
+        
+        // Act
+        var result = day01.SumAllDifferences();
+        
+        // Assert
+        result.Should().BeGreaterThan(14);
+    }
 }

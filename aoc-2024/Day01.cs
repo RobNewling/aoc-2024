@@ -60,4 +60,14 @@ public class Day01
     {
         return Math.Abs(_listTwo[index] - _listOne[index]);
     }
+
+    public int SumAllDifferences()
+    {
+        int sum = 0;
+        for (int i = 0; i < _listOne.Count; i++)
+        {
+            sum += DistanceBetweenElements(i);
+        }
+        return sum;
+    }
 }
