@@ -70,4 +70,9 @@ public class Day01
         }
         return sum;
     }
+
+    public int FindNumberOfOccurrencesInRightList(int leftElement)
+    {
+        return _listTwo.FindAll(x => x == leftElement).Count;
+    }
 }

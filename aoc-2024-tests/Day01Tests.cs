@@ -82,4 +82,20 @@ public class Day01Tests
         // Assert
         result.Should().BeGreaterThan(14);
     }
+
+    [Test]
+    public void Find_Number_Of_Occurrences_Of_Left_Element_In_Right_List()
+    {
+        // Arrange
+        var day01 = new Day01();
+        var inputData = day01.ReadInputFile("Day01_Part2_Sample.txt");
+        day01.LoadIntoLists(inputData);
+        var leftElement = day01.GetListOne().First();
+        
+        // Act
+        var result = day01.FindNumberOfOccurrencesInRightList(leftElement);
+        
+        // Assert
+        result.Should().Be(3);
+    }
 }
