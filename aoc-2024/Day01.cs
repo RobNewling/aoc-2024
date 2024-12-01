@@ -11,7 +11,6 @@ public class Day01
         return File.ReadAllLines(InputFolderPath + "/" + fileName);
     }
 
-
     public void LoadIntoLists(string[] inputData)
     {
         foreach (string line in inputData)
@@ -55,5 +54,10 @@ public class Day01
     public List<int> GetListTwo()
     {
         return _listTwo;
+    }
+
+    public int DistanceBetweenElements(int index)
+    {
+        return Math.Abs(_listTwo[index] - _listOne[index]);
     }
 }

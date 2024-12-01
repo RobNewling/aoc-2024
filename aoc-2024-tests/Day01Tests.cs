@@ -50,4 +50,20 @@ public class Day01Tests
         var firstElement = day01.GetListOne().First();
         firstElement.Should().Be(min);
     }
+
+    [Test]
+    public void Returns_Distance_Between_Two_Elements()
+    {
+        // Arrange
+        var day01 = new Day01();
+        var inputData = day01.ReadInputFile("Day01.txt");
+        day01.LoadIntoLists(inputData);
+        day01.SortLists();
+        
+        // Act
+        var result = day01.DistanceBetweenElements(0);
+
+        // Assert
+        result.Should().Be(14);
+    }
 }
