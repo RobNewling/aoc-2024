@@ -115,7 +115,7 @@ public class Day02Tests
     {
         // Arrange
         var day02 = new Day02();
-        var reports = day02.ReadInputFile("Day02.txt");
+        var reports = day02.ReadInputFile("Day02_Part1_Sample.txt");
         day02.LoadReports(reports);
         
         //Act
