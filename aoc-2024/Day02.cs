@@ -39,7 +39,7 @@ public class Day02
 
     public bool CheckEachNumberInReportIsSafe(int[] report)
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < report.Length - 1; i++)
         {
             if (IsPairInSafeRange(report[i], report[i + 1]) == false)
             {
@@ -51,7 +51,7 @@ public class Day02
 
     public bool ReportIsAccending(int[] report)
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < report.Length - 1; i++)
         {
             if (report[i] > report[i + 1])
             {
@@ -63,7 +63,7 @@ public class Day02
     
     public bool ReportIsDecending(int[] report)
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < report.Length - 1; i++)
         {
             if (report[i] < report[i + 1])
             {
@@ -81,6 +81,14 @@ public class Day02
 
     public int NumberOfSafeReports(string[] reports)
     {
+        List<string> safeReports = new List<string>();
+        foreach (var report in reports)
+        {
+            if (ReportIsSafe(report))
+            {
+                safeReports.Add(report);
+            }
+        }
         return reports.Count(n => ReportIsSafe(n));
     }
 }
