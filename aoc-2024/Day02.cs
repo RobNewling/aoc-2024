@@ -34,7 +34,26 @@ public class Day02
     public bool ReportIsSafe(string report)
     {
         var intArray = SplitIntoIntArray(report);
-        return CheckEachNumberInReportIsSafe(intArray) && ReportIsAccending(intArray) ^ ReportIsDecending(intArray);
+        return ProvideSecondChance(intArray);
+    }
+
+    private bool ProvideSecondChance(int[] intArray)
+    {
+        if (CheckEachNumberInReportIsSafe(intArray) && (ReportIsAccending(intArray) ^ ReportIsDecending(intArray)))
+        {
+            return true;
+        }
+
+        for (int i = 0; i < intArray.Length; i++)
+        {
+            var secondChanceArray = intArray.Where((num, index) => index != i).ToArray();
+            if (CheckEachNumberInReportIsSafe(secondChanceArray) && (ReportIsAccending(secondChanceArray) ^ ReportIsDecending(secondChanceArray)))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public bool CheckEachNumberInReportIsSafe(int[] report)
@@ -53,7 +72,7 @@ public class Day02
     {
         for (int i = 0; i < report.Length - 1; i++)
         {
-            if (report[i] > report[i + 1])
+            if (report[i] >= report[i + 1])
             {
                 return false;
             };
@@ -65,7 +84,7 @@ public class Day02
     {
         for (int i = 0; i < report.Length - 1; i++)
         {
-            if (report[i] < report[i + 1])
+            if (report[i] <= report[i + 1])
             {
                 return false;
             };
@@ -76,7 +95,7 @@ public class Day02
 
     public bool IsPairInSafeRange(int first, int second)
     {
-        return first != second && Math.Abs(first - second) <= 3;
+        return Math.Abs(first - second) <= 3;
     }
 
     public int NumberOfSafeReports(string[] reports)

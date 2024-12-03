@@ -122,7 +122,7 @@ public class Day02Tests
         var result = day02.NumberOfSafeReports(reports);
         
         // Assert
-        result.Should().Be(2);
+        result.Should().Be(4);
     }
     
     [Test]
