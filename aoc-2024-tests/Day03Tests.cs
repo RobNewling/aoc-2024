@@ -18,18 +18,32 @@ public class Day03Tests
         // Assert
         result.Length.Should().BeGreaterThan(0);
     }
-
+    
     [Test]
-    public void Can_Multiply_Two_Numbers()
+    public void Can_Extract_And_Multiply_Four_Numbers()
     {
         // Arrange 
         var day03 = new Day03();
-        var mulData = day03.ReadInputFile("Day03_Part1_Sample1.txt");
+        var mulData = day03.ReadInputFile("Day03.txt");
         
         // Act
-        var result = day03.ProcessMultiplyCommand(mulData[0]);
+        var result = day03.ExtractNumbers(mulData[0]);
         
         // Assert
-        result.Should().Be(2024);
+        result.Should().Be(161);
+    }
+    
+    [Test]
+    public void Sum_Multiple_Lines()
+    {
+        // Arrange 
+        var day03 = new Day03();
+        var mulData = day03.ReadInputFile("Day03.txt");
+        
+        // Act
+        var result = day03.SumAllLines(mulData);
+        
+        // Assert
+        result.Should().Be(161);
     }
 }

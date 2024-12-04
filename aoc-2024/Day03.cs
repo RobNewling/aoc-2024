@@ -11,18 +11,31 @@ public class Day03
         return File.ReadAllLines(InputFolderPath + "/" + fileName);
     }
 
-    public int ProcessMultiplyCommand(string mulData)
+    public int SumAllLines(string[] mulData)
     {
-        var numbers = ExtractNumbers(mulData);
-        return numbers.FirstNumber * numbers.SecondNumber;
+        var sum = 0;
+        foreach (string line in mulData)
+        {
+            sum += ExtractNumbers(line);
+        }
+        return sum;
     }
 
-    private ExtractedNumbers ExtractNumbers(string input)
+    public int ExtractNumbers(string input)
     {
         Regex numberRegex = new Regex(@"(?:mul\()(\d{1,3}),(\d{1,3})\)");
         MatchCollection matches = numberRegex.Matches(input);
-        
-        return new ExtractedNumbers(int.Parse(matches[0].Groups[1].Value), int.Parse(matches[0].Groups[2].Value));
+        return SumMultiples(matches);
+    }
+
+    public int SumMultiples(MatchCollection matches)
+    {
+        var sum = 0;
+        foreach (Match match in matches)
+        {
+            sum += int.Parse(match.Groups[1].Value) * int.Parse(match.Groups[2].Value);
+        }
+        return sum;
     }
 }
 
