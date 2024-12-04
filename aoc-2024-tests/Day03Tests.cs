@@ -39,7 +39,7 @@ public class Day03Tests
     {
         // Arrange 
         var day03 = new Day03();
-        var mulData = day03.ReadInputFile("Day03.txt");
+        var mulData = day03.ReadInputFile("Day03_NoLineBreaks.txt");
         
         // Act
         var result = day03.SumAllLines(mulData);
