@@ -1,3 +1,4 @@
+using System.Reflection;
 using aoc_2024;
 using FluentAssertions;
 
@@ -44,6 +45,19 @@ public class Day03Tests
         var result = day03.SumAllLines(mulData);
         
         // Assert
-        result.Should().Be(161);
+        result.Should().Be(48);
+    }
+
+    [Test]
+    public void Remove_Dont_to_Do_Sections()
+    {
+        // Arrange 
+        var day03 = new Day03();
+        var mulData = day03.ReadInputFile("Day03.txt");
+        
+        // Act
+        var result = day03.SanitizeInput(mulData[0]);
+
+        result.Should().NotContain("don't()");
     }
 }

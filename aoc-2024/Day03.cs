@@ -23,9 +23,16 @@ public class Day03
 
     public int ExtractNumbers(string input)
     {
+
         Regex numberRegex = new Regex(@"(?:mul\()(\d{1,3}),(\d{1,3})\)");
-        MatchCollection matches = numberRegex.Matches(input);
-        return SumMultiples(matches);
+        MatchCollection matches = numberRegex.Matches(SanitizeInput(input));
+        return SumMultiples(matches);;
+    }
+
+    public string SanitizeInput(string input)
+    {
+        var sanitizedInput = Regex.Replace(input, @"(don't\(\).*?do\(\)|don't\(\).*?$)", "");
+        return sanitizedInput;
     }
 
     public int SumMultiples(MatchCollection matches)
