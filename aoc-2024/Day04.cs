@@ -63,6 +63,11 @@ public class Grid
         return _grid.Find(s => s.Position() == (x, y)).Value();
     }
 
+    public Space GetSpaceAt(int x, int y)
+    {
+        return _grid.Find(s => s.Position() == (x, y));
+    }
+
     public Grid Find(string sequence)
     {
         var chars = sequence.ToCharArray();
@@ -70,15 +75,38 @@ public class Grid
         {
             if (space.Value() == sequence[0])
             {
-                return new Grid(1,1);
+                var nextSpace = DirectionalSearch(space, sequence[1]);
+                if (nextSpace != null)
+                {
+                    return new Grid(1,1);
+                }
             }
         }
         return new Grid(0,0);
     }
 
-    private void DirectionalSearch(Space startingSpace)
+    private Space? DirectionalSearch(Space startingSpace, char forValue)
     {
-        
+       var rightSpace = SearchRightOf(startingSpace);
+       if (rightSpace?.Value() == forValue)
+       {
+           return rightSpace;
+       }
+
+       return null;
+    }
+
+    private Space? SearchRightOf(Space startingSpace)
+    {
+        var (x, y) = startingSpace.Position();
+        var spaceToTheRight = x + 1;
+        if (spaceToTheRight > Size() / 2)
+        {
+            //out of bounds
+            return null;
+        }
+        var rightSpace = GetSpaceAt(spaceToTheRight, y);
+        return rightSpace;
     }
 
     public int Size()

@@ -49,13 +49,13 @@ public class Day04Tests
     }
     
     [Test]
-    public void Chomper_Finds_X()
+    public void Chomper_Finds_XM()
     {
         // Arrange
         var day04 = new Day04();
         var input = day04.ReadInputFile("Day04_Part1_Sample.txt");
         var grid = new Grid(input);
-        var sequence = "X";
+        var sequence = "XM";
         
         // Act
         var result = grid.Find(sequence);
