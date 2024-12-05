@@ -47,5 +47,37 @@ public class Day04Tests
         // Assert
         result.Should().Be('M');
     }
+    
+    [Test]
+    public void Chomper_Finds_X()
+    {
+        // Arrange
+        var day04 = new Day04();
+        var input = day04.ReadInputFile("Day04_Part1_Sample.txt");
+        var grid = new Grid(input);
+        var sequence = "X";
+        
+        // Act
+        var result = grid.Find(sequence);
+
+        // Assert
+        result.Size().Should().BeGreaterThan(0);
+    }
+    
+    [Test]
+    public void Chomper_Finds_XMAS()
+    {
+        // Arrange
+        var day04 = new Day04();
+        var input = day04.ReadInputFile("Day04_Part1_Sample.txt");
+        var grid = new Grid(input);
+        var sequence = "XMAS";
+        
+        // Act
+        var result = grid.Find(sequence);
+
+        // Assert
+        result.Size().Should().BeGreaterThan(0);
+    }
 }
 

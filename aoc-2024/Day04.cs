@@ -64,4 +64,54 @@ public class Grid
     {
         return _grid[x, y];
     }
+
+    public Grid Find(string sequence)
+    {
+        var chars = sequence.ToCharArray();
+        foreach (var space in _grid)
+        {
+            if (space.Equals(chars[0]))
+            {
+                return new Grid(1,1);
+            }
+        }
+        return new Grid(0,0);
+    }
+
+    private void DirectionalSearch(Space startingSpace)
+    {
+        
+    }
+
+    public int Size()
+    {
+        return _grid.Length;
+    }
+}
+
+public class Space
+{
+    private (int, int) _position;
+    private char _value;
+
+    public Space(int x, int y, char value)
+    {
+        _position = (x, y);
+        _value = value;
+    }
+
+    public (int, int) Position()
+    {
+        return _position;
+    }
+    
+    public char Value()
+    {
+        return _value;
+    }
+
+    public void SetValue(char value)
+    {
+        _value = value;
+    }
 }
