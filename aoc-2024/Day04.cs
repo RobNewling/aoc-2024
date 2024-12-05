@@ -24,45 +24,43 @@ public class Day04
 
 public class Grid
 {
-    private char[,] _grid;
+    private List<Space> _grid = new ();
 
     public Grid(int width, int height)
     {
-        _grid = new char[width, height];
-        CreateBlankSpaces();
+        CreateBlankSpaces(width, height);
     }
     
     public Grid(string[] input)
     {
-        _grid = new char[input[0].Length, input.Count()];
         CreateSpaces(input);
     }
 
     private void CreateSpaces(string[] input)
     {
-        for (int x = 0; x < _grid.GetLength(0); x++)
+        for (int x = 0; x < input[0].Length; x++)
         {
-            for (int y = 0; y < _grid.GetLength(1); y++)
+            for (int y = 0; y < input.Count(); y++)
             {
-                _grid[x, y] = input[x][y];
+                _grid.Add(new Space(x, y, input[x][y]));
             }
         }
     }
 
-    private void CreateBlankSpaces()
+    private void CreateBlankSpaces(int width, int height)
     {
-        for (int x = 0; x < _grid.GetLength(0); x++)
+        for (int x = 0; x < width; x++)
         {
-            for (int y = 0; y < _grid.GetLength(1); y++)
+            for (int y = 0; y < height; y++)
             {
-                _grid[x, y] = '.';
+                _grid.Add(new Space(x, y, '.'));
             }
         }
     }
 
     public char GetValueAt(int x, int y)
     {
-        return _grid[x, y];
+        return _grid.Find(s => s.Position() == (x, y)).Value();
     }
 
     public Grid Find(string sequence)
@@ -70,7 +68,7 @@ public class Grid
         var chars = sequence.ToCharArray();
         foreach (var space in _grid)
         {
-            if (space.Equals(chars[0]))
+            if (space.Value() == sequence[0])
             {
                 return new Grid(1,1);
             }
@@ -85,7 +83,7 @@ public class Grid
 
     public int Size()
     {
-        return _grid.Length;
+        return _grid.Count;
     }
 }
 
