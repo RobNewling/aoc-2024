@@ -29,10 +29,27 @@ public class Grid
     public Grid(int width, int height)
     {
         _grid = new char[width, height];
-        CreateSpaces();
+        CreateBlankSpaces();
     }
     
-    private void CreateSpaces()
+    public Grid(string[] input)
+    {
+        _grid = new char[input[0].Length, input.Count()];
+        CreateSpaces(input);
+    }
+
+    private void CreateSpaces(string[] input)
+    {
+        for (int x = 0; x < _grid.GetLength(0); x++)
+        {
+            for (int y = 0; y < _grid.GetLength(1); y++)
+            {
+                _grid[x, y] = input[x][y];
+            }
+        }
+    }
+
+    private void CreateBlankSpaces()
     {
         for (int x = 0; x < _grid.GetLength(0); x++)
         {

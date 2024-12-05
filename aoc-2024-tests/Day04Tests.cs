@@ -31,7 +31,21 @@ public class Day04Tests
 
         // Assert
         result.Should().Be('.');
+    }
+    
+    [Test]
+    public void Grid_Returns_Loaded_Value_At_Space()
+    {
+        // Arrange
+        var day04 = new Day04();
+        var input = day04.ReadInputFile("Day04_Part1_Sample.txt");
+        var grid = new Grid(input);
+        
+        // Act
+        var result = grid.GetValueAt(0, 0);
 
+        // Assert
+        result.Should().Be('M');
     }
 }
 
