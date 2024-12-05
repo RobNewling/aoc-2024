@@ -31,7 +31,7 @@ public class Day03Tests
         var result = day03.ExtractNumbers(mulData[0]);
         
         // Assert
-        result.Should().Be(161);
+        result.Should().Be(11506714);
     }
     
     [Test]
@@ -45,7 +45,7 @@ public class Day03Tests
         var result = day03.SumAllLines(mulData);
         
         // Assert
-        result.Should().Be(48);
+        result.Should().Be(103811193);
     }
 
     [Test]

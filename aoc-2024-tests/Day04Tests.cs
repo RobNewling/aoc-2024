@@ -19,4 +19,19 @@ public class Day04Tests
         // Assert
         result.Length.Should().BeGreaterThan(0);
     }
+
+    [Test]
+    public void Grid_Returns_Value_At_Space()
+    {
+        // Arrange
+        var grid = new Grid(2,2);
+        
+        // Act
+        var result = grid.GetValueAt(0, 0);
+
+        // Assert
+        result.Should().Be('.');
+
+    }
 }
+
