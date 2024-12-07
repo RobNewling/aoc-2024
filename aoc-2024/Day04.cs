@@ -68,7 +68,7 @@ public class Grid
         return _grid.Find(s => s.Position() == (x, y));
     }
 
-    public Grid Find(string sequence)
+    public int Find(string sequence)
     {
         var score = 0;
         var restOfChars = RestOfChars(sequence);
@@ -76,14 +76,11 @@ public class Grid
         {
             if (space.Value() == sequence[0])
             {
-                var nextSpace = DirectionalSearch(space, restOfChars, score);
-                if (nextSpace > 0)
-                {
-                    return new Grid(1,1);
-                }
+                score += DirectionalSearch(space, restOfChars, 0);
             }
         }
-        return new Grid(0,0);
+
+        return score;
     }
 
     private static char[] RestOfChars(string sequence)
@@ -100,7 +97,7 @@ public class Grid
        
             if (rightSpace?.Value() == forValues[0])
             {
-                score = DirectionalSearch(rightSpace, forValues.Skip(1).ToArray(), score);
+                score += DirectionalSearch(rightSpace, forValues.Skip(1).ToArray(), score);
             }
         }
         else
@@ -120,8 +117,44 @@ public class Grid
             //out of bounds
             return null;
         }
-        var rightSpace = GetSpaceAt(spaceToTheRight, y);
-        return rightSpace;
+        return GetSpaceAt(spaceToTheRight, y);
+    }
+    
+    private Space? SearchSouthEast(Space startingSpace)
+    {
+        var (x, y) = startingSpace.Position();
+        var xSouthEast = x + 1;
+        var ySouthEast = y + 1;
+        if (xSouthEast > Size() / 2 || ySouthEast > Size() / 2)
+        {
+            //out of bounds
+            return null;
+        }
+        return GetSpaceAt(xSouthEast, ySouthEast);;
+    }
+    
+    private Space? SearchBelow(Space startingSpace)
+    {
+        var (x, y) = startingSpace.Position();
+        var spaceBelow = y + 1;
+        if (spaceBelow > Size() / 2)
+        {
+            //out of bounds
+            return null;
+        }
+        return GetSpaceAt(spaceBelow, y);;
+    }
+    
+    private Space? SearchLeftOf(Space startingSpace)
+    {
+        var (x, y) = startingSpace.Position();
+        var spaceToTheLeft = x - 1;
+        if (spaceToTheLeft < 0)
+        {
+            //out of bounds
+            return null;
+        }
+        return GetSpaceAt(spaceToTheLeft, y);;
     }
 
     public int Size()

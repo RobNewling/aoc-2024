@@ -61,7 +61,7 @@ public class Day04Tests
         var result = grid.Find(sequence);
 
         // Assert
-        result.Size().Should().BeGreaterThan(0);
+        result.Should().BeGreaterThan(0);
     }
     
     [Test]
@@ -77,7 +77,7 @@ public class Day04Tests
         var result = grid.Find(sequence);
 
         // Assert
-        result.Size().Should().BeGreaterThan(0);
+        result.Should().BeGreaterThan(0);
     }
 }
 
