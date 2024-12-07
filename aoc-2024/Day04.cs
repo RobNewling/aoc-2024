@@ -38,11 +38,11 @@ public class Grid
 
     private void CreateSpaces(string[] input)
     {
-        for (int x = 0; x < input[0].Length; x++)
+        for (int y = 0; y < input.Count(); y++)
         {
-            for (int y = 0; y < input.Count(); y++)
+            for (int x = 0; x < input[y].Length; x++)
             {
-                _grid.Add(new Space(x, y, input[x][y]));
+                _grid.Add(new Space(x, y, input[y][x]));
             }
         }
     }
@@ -70,13 +70,14 @@ public class Grid
 
     public Grid Find(string sequence)
     {
-        var chars = sequence.ToCharArray();
+        var score = 0;
+        var restOfChars = RestOfChars(sequence);
         foreach (var space in _grid)
         {
             if (space.Value() == sequence[0])
             {
-                var nextSpace = DirectionalSearch(space, sequence[1]);
-                if (nextSpace != null)
+                var nextSpace = DirectionalSearch(space, restOfChars, score);
+                if (nextSpace > 0)
                 {
                     return new Grid(1,1);
                 }
@@ -85,15 +86,29 @@ public class Grid
         return new Grid(0,0);
     }
 
-    private Space? DirectionalSearch(Space startingSpace, char forValue)
+    private static char[] RestOfChars(string sequence)
     {
-       var rightSpace = SearchRightOf(startingSpace);
-       if (rightSpace?.Value() == forValue)
-       {
-           return rightSpace;
-       }
+        var restOfChars = sequence.Substring(1,sequence.Length-1).ToCharArray();
+        return restOfChars;
+    }
 
-       return null;
+    private int DirectionalSearch(Space startingSpace, char[] forValues, int score)
+    { 
+        if (forValues.Length > 0)
+        {
+            var rightSpace = SearchRightOf(startingSpace);
+       
+            if (rightSpace?.Value() == forValues[0])
+            {
+                score = DirectionalSearch(rightSpace, forValues.Skip(1).ToArray(), score);
+            }
+        }
+        else
+        {
+            score += 1;
+        }
+        
+        return score;
     }
 
     private Space? SearchRightOf(Space startingSpace)
