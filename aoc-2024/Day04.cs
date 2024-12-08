@@ -90,6 +90,22 @@ public class Grid
 
         return score;
     }
+    
+    public int FindCross(string sequence)
+    {
+        var score = 0;
+        var chars = sequence.ToCharArray();
+        var middleChar = chars[1];
+        foreach (var space in _grid)
+        {
+            if (space.Value() == middleChar)
+            {
+                score += SearchInCross(space, chars);
+            }
+        }
+
+        return score;
+    }
 
     private static char[] RestOfChars(string sequence)
     {
@@ -113,6 +129,35 @@ public class Grid
             }
         }
         return 1;
+    }
+
+    private int SearchInCross(Space startingSpace, char[] forValues)
+    {
+        var score = 0;
+        var firstChar = forValues[0];
+        var lastChar = forValues[2];
+        if (GetSpaceSouthEastOf(startingSpace)?.Value() == firstChar
+            && GetSpaceNorthWestOf(startingSpace)?.Value() == lastChar)
+        {
+            score += 1;
+        }
+        if (GetSpaceSouthWestOf(startingSpace)?.Value() == firstChar
+            && GetSpaceNorthEastOf(startingSpace)?.Value() == lastChar)
+        {
+            score += 1;
+        }
+        if (GetSpaceNorthWestOf(startingSpace)?.Value() == firstChar
+            && GetSpaceSouthEastOf(startingSpace)?.Value() == lastChar)
+        {
+            score += 1;
+        }
+        if (GetSpaceNorthEastOf(startingSpace)?.Value() == firstChar
+            && GetSpaceSouthWestOf(startingSpace)?.Value() == lastChar)
+        {
+            score += 1;
+        }
+        
+        return score / 2;
     }
 
     private Space? GetSpaceEastOf(Space startingSpace)

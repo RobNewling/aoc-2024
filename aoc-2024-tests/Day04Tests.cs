@@ -79,5 +79,21 @@ public class Day04Tests
         // Assert
         result.Should().Be(18);
     }
+    
+    [Test]
+    public void Chomper_Finds_X_MAS()
+    {
+        // Arrange
+        var day04 = new Day04();
+        var input = day04.ReadInputFile("Day04_Part1_Sample.txt");
+        var grid = new Grid(input);
+        var sequence = "MAS";
+        
+        // Act
+        var result = grid.FindCross(sequence);
+
+        // Assert
+        result.Should().Be(9);
+    }
 }
 
