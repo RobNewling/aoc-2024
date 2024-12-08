@@ -77,7 +77,7 @@ public class Grid
         {
             if (space.Value() == sequence[0])
             {
-                score += SearchEastOf(space, restOfChars);
+                score += SearchDirection(space, restOfChars, GetSpaceEastOf);
             }
         }
 
@@ -100,7 +100,7 @@ public class Grid
         return score;
     }
 
-    private int SearchEastOf(Space startingSpace, char[] forValues)
+    private int SearchDirection(Space startingSpace, char[] forValues, Func<Space, Space> methodOfSearch)
     {
         var nextSpace = startingSpace;
         var pass = true;
@@ -108,7 +108,7 @@ public class Grid
         {
             if (pass)
             {
-                nextSpace = GetSpaceEastOf(nextSpace);
+                nextSpace = methodOfSearch(nextSpace);
                 if (nextSpace is null || !nextSpace.Value().Equals(value))
                 {
                     pass = false;
