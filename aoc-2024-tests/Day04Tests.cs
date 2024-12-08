@@ -69,7 +69,7 @@ public class Day04Tests
     {
         // Arrange
         var day04 = new Day04();
-        var input = day04.ReadInputFile("Day04_Part1_Sample.txt");
+        var input = day04.ReadInputFile("Day04_Part1_SmallSample.txt");
         var grid = new Grid(input);
         var sequence = "XMAS";
         
@@ -77,7 +77,7 @@ public class Day04Tests
         var result = grid.Find(sequence);
 
         // Assert
-        result.Should().BeGreaterThan(0);
+        result.Should().Be(3);
     }
 }
 

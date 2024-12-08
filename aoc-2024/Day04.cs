@@ -93,11 +93,23 @@ public class Grid
     { 
         if (forValues.Length > 0)
         {
+            var nextValue = forValues[0];
+            
             var rightSpace = SearchRightOf(startingSpace);
-       
-            if (rightSpace?.Value() == forValues[0])
+            if (rightSpace?.Value() == nextValue)
             {
-                score += DirectionalSearch(rightSpace, forValues.Skip(1).ToArray(), score);
+                score += DirectionalSearch(rightSpace, forValues.Skip(1).ToArray(), 0);
+            }
+            //bunch of else ifs I guess
+            var southEastSpace = SearchSouthEastOf(startingSpace);
+            if (southEastSpace?.Value() == nextValue)
+            {
+                score += DirectionalSearch(southEastSpace, forValues.Skip(1).ToArray(), 0);
+            }
+            var southSpace = SearchSouthOf(startingSpace);
+            if (southSpace?.Value() == nextValue)
+            {
+                score += DirectionalSearch(southSpace, forValues.Skip(1).ToArray(), 0);
             }
         }
         else
@@ -112,7 +124,7 @@ public class Grid
     {
         var (x, y) = startingSpace.Position();
         var spaceToTheRight = x + 1;
-        if (spaceToTheRight > Size() / 2)
+        if (spaceToTheRight > Size())
         {
             //out of bounds
             return null;
@@ -120,12 +132,12 @@ public class Grid
         return GetSpaceAt(spaceToTheRight, y);
     }
     
-    private Space? SearchSouthEast(Space startingSpace)
+    private Space? SearchSouthEastOf(Space startingSpace)
     {
         var (x, y) = startingSpace.Position();
         var xSouthEast = x + 1;
         var ySouthEast = y + 1;
-        if (xSouthEast > Size() / 2 || ySouthEast > Size() / 2)
+        if (xSouthEast > Size() || ySouthEast > Size())
         {
             //out of bounds
             return null;
@@ -133,16 +145,16 @@ public class Grid
         return GetSpaceAt(xSouthEast, ySouthEast);;
     }
     
-    private Space? SearchBelow(Space startingSpace)
+    private Space? SearchSouthOf(Space startingSpace)
     {
         var (x, y) = startingSpace.Position();
         var spaceBelow = y + 1;
-        if (spaceBelow > Size() / 2)
+        if (spaceBelow > Size())
         {
             //out of bounds
             return null;
         }
-        return GetSpaceAt(spaceBelow, y);;
+        return GetSpaceAt(x, spaceBelow);;
     }
     
     private Space? SearchLeftOf(Space startingSpace)
