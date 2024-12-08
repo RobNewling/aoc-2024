@@ -78,6 +78,13 @@ public class Grid
             if (space.Value() == sequence[0])
             {
                 score += SearchDirection(space, restOfChars, GetSpaceEastOf);
+                score += SearchDirection(space, restOfChars, GetSpaceSouthEastOf);
+                score += SearchDirection(space, restOfChars, GetSpaceSouthOf);
+                score += SearchDirection(space, restOfChars, GetSpaceSouthWestOf);
+                score += SearchDirection(space, restOfChars, GetSpaceWestOf);
+                score += SearchDirection(space, restOfChars, GetSpaceNorthWestOf);
+                score += SearchDirection(space, restOfChars, GetSpaceNorthOf);
+                score += SearchDirection(space, restOfChars, GetSpaceNorthEastOf);
             }
         }
 
@@ -88,16 +95,6 @@ public class Grid
     {
         var restOfChars = sequence.Substring(1,sequence.Length-1).ToCharArray();
         return restOfChars;
-    }
-
-    private int DirectionalSearch(Space startingSpace, char[] forValues, int score)
-    {
-        if (forValues.Length > 0)
-        {
-            
-        }
-
-        return score;
     }
 
     private int SearchDirection(Space startingSpace, char[] forValues, Func<Space, Space> methodOfSearch)
@@ -111,15 +108,10 @@ public class Grid
                 nextSpace = methodOfSearch(nextSpace);
                 if (nextSpace is null || !nextSpace.Value().Equals(value))
                 {
-                    pass = false;
+                    return 0;
                 }
             }
-            else
-            {
-                return 0;
-            }
         }
-
         return 1;
     }
 
@@ -160,6 +152,19 @@ public class Grid
         return GetSpaceAt(x, newYPos);;
     }
     
+    private Space? GetSpaceSouthWestOf(Space startingSpace)
+    {
+        var (x, y) = startingSpace.Position();
+        var newXPos = x - 1;
+        var newYPos = y + 1;
+        if (newXPos > Size() || newYPos > Size())
+        {
+            //out of bounds
+            return null;
+        }
+        return GetSpaceAt(newXPos, newYPos);;
+    }
+    
     private Space? GetSpaceWestOf(Space startingSpace)
     {
         var (x, y) = startingSpace.Position();
@@ -170,6 +175,44 @@ public class Grid
             return null;
         }
         return GetSpaceAt(newXPos, y);;
+    }
+    
+    private Space? GetSpaceNorthWestOf(Space startingSpace)
+    {
+        var (x, y) = startingSpace.Position();
+        var newXPos = x - 1;
+        var newYPos = y - 1;
+        if (newXPos > Size() || newYPos > Size())
+        {
+            //out of bounds
+            return null;
+        }
+        return GetSpaceAt(newXPos, newYPos);;
+    }
+    
+    private Space? GetSpaceNorthOf(Space startingSpace)
+    {
+        var (x, y) = startingSpace.Position();
+        var newYPos = y - 1;
+        if (newYPos > Size())
+        {
+            //out of bounds
+            return null;
+        }
+        return GetSpaceAt(x, newYPos);;
+    }
+    
+    private Space? GetSpaceNorthEastOf(Space startingSpace)
+    {
+        var (x, y) = startingSpace.Position();
+        var newXPos = x + 1;
+        var newYPos = y - 1;
+        if (newXPos > Size() || newYPos > Size())
+        {
+            //out of bounds
+            return null;
+        }
+        return GetSpaceAt(newXPos, newYPos);;
     }
 
     public int Size()
