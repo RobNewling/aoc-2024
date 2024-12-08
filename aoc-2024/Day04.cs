@@ -8,7 +8,8 @@ namespace aoc_2024;
 // So if it finds the first symbol, it then looks in all 
 // possible directions to check if the it can find the 
 // next symbol. The only rules are
-// 1. each symbol must be one step away from the previous one and
+// 1. each symbol must be one step away from the previous one 
+// in straight line from the point of origin, and
 // 2. it can't go passed the grid
 
 public class Day04
@@ -76,7 +77,7 @@ public class Grid
         {
             if (space.Value() == sequence[0])
             {
-                score += DirectionalSearch(space, restOfChars, 0);
+                score += SearchEastOf(space, restOfChars);
             }
         }
 
@@ -90,83 +91,85 @@ public class Grid
     }
 
     private int DirectionalSearch(Space startingSpace, char[] forValues, int score)
-    { 
+    {
         if (forValues.Length > 0)
         {
-            var nextValue = forValues[0];
             
-            var rightSpace = SearchRightOf(startingSpace);
-            if (rightSpace?.Value() == nextValue)
-            {
-                score += DirectionalSearch(rightSpace, forValues.Skip(1).ToArray(), 0);
-            }
-            //bunch of else ifs I guess
-            var southEastSpace = SearchSouthEastOf(startingSpace);
-            if (southEastSpace?.Value() == nextValue)
-            {
-                score += DirectionalSearch(southEastSpace, forValues.Skip(1).ToArray(), 0);
-            }
-            var southSpace = SearchSouthOf(startingSpace);
-            if (southSpace?.Value() == nextValue)
-            {
-                score += DirectionalSearch(southSpace, forValues.Skip(1).ToArray(), 0);
-            }
         }
-        else
-        {
-            score += 1;
-        }
-        
+
         return score;
     }
 
-    private Space? SearchRightOf(Space startingSpace)
+    private int SearchEastOf(Space startingSpace, char[] forValues)
+    {
+        var nextSpace = startingSpace;
+        var pass = true;
+        foreach (var value in forValues)
+        {
+            if (pass)
+            {
+                nextSpace = GetSpaceEastOf(nextSpace);
+                if (nextSpace is null || !nextSpace.Value().Equals(value))
+                {
+                    pass = false;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        return 1;
+    }
+
+    private Space? GetSpaceEastOf(Space startingSpace)
     {
         var (x, y) = startingSpace.Position();
-        var spaceToTheRight = x + 1;
-        if (spaceToTheRight > Size())
+        var newXPos = x + 1;
+        if (newXPos > Size())
         {
             //out of bounds
             return null;
         }
-        return GetSpaceAt(spaceToTheRight, y);
+        return GetSpaceAt(newXPos, y);
     }
     
-    private Space? SearchSouthEastOf(Space startingSpace)
+    private Space? GetSpaceSouthEastOf(Space startingSpace)
     {
         var (x, y) = startingSpace.Position();
-        var xSouthEast = x + 1;
-        var ySouthEast = y + 1;
-        if (xSouthEast > Size() || ySouthEast > Size())
+        var newXPos = x + 1;
+        var newYPos = y + 1;
+        if (newXPos > Size() || newYPos > Size())
         {
             //out of bounds
             return null;
         }
-        return GetSpaceAt(xSouthEast, ySouthEast);;
+        return GetSpaceAt(newXPos, newYPos);;
     }
     
-    private Space? SearchSouthOf(Space startingSpace)
+    private Space? GetSpaceSouthOf(Space startingSpace)
     {
         var (x, y) = startingSpace.Position();
-        var spaceBelow = y + 1;
-        if (spaceBelow > Size())
+        var newYPos = y + 1;
+        if (newYPos > Size())
         {
             //out of bounds
             return null;
         }
-        return GetSpaceAt(x, spaceBelow);;
+        return GetSpaceAt(x, newYPos);;
     }
     
-    private Space? SearchLeftOf(Space startingSpace)
+    private Space? GetSpaceWestOf(Space startingSpace)
     {
         var (x, y) = startingSpace.Position();
-        var spaceToTheLeft = x - 1;
-        if (spaceToTheLeft < 0)
+        var newXPos = x - 1;
+        if (newXPos < 0)
         {
             //out of bounds
             return null;
         }
-        return GetSpaceAt(spaceToTheLeft, y);;
+        return GetSpaceAt(newXPos, y);;
     }
 
     public int Size()
