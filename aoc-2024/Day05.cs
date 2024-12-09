@@ -1,5 +1,7 @@
 
 
+using Microsoft.VisualBasic.FileIO;
+
 namespace aoc_2024;
 
 public class Day05
@@ -28,8 +30,27 @@ public class Day05
         
         return (_pageOrderingRiles, _updatePages);
     }
-    
-    
 
+
+    public List<PageOrderingRule> CreateRules(string[] listOfRules)
+    {
+        var pageOrderingRules = listOfRules.Select(line =>
+            {
+                var parts = line.Split("|");
+                return new PageOrderingRule
+                {
+                    FirstPageNumber = int.Parse(parts[0]),
+                    SecondPageNumber = int.Parse(parts[1]),
+                };
+            }
+
+        ).ToList();
+        return pageOrderingRules;
+    }
 }
 
+public class PageOrderingRule
+{
+    public int FirstPageNumber { get; set; }
+    public int SecondPageNumber { get; set; }
+}
