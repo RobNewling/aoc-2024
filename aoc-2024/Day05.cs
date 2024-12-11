@@ -47,10 +47,27 @@ public class Day05
         ).ToList();
         return pageOrderingRules;
     }
+
+    public List<Page> CreatePages(List<PageOrderingRule> rules)
+    {
+        var pages = new List<Page>();
+        foreach (var rule in rules)
+        {
+            pages.Add(new Page { Number = rule.FirstPageNumber, MustBeBefore = new List<int>(), MustBeAfter = new List<int>() });
+        }
+        return new List<Page>();
+    }
 }
 
 public class PageOrderingRule
 {
     public int FirstPageNumber { get; set; }
     public int SecondPageNumber { get; set; }
+}
+
+public class Page
+{
+    public int Number { get; set; }
+    public required List<int> MustBeBefore { get; set; }
+    public required List<int> MustBeAfter { get; set; }
 }

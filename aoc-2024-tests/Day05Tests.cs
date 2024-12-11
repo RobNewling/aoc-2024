@@ -50,5 +50,21 @@ public class Day05Tests
         results.First().FirstPageNumber.Should().BeGreaterThan(0);
         results.First().SecondPageNumber.Should().BeGreaterThan(0);
     }
+
+    [Test]
+    public void Create_Pages_From_Rules()
+    {
+        // Arrange
+        var day05 = new Day05();
+        var fileContents = day05.ReadInputFile("Day05_Sample.txt");
+        var (pageOrderingRules, updatePages) = day05.SplitFileInTwo(fileContents);
+        var rules = day05.CreateRules(pageOrderingRules);
+        
+        // Act
+        var result = day05.CreatePages(rules);
+        
+        // Assert
+        result.Count.Should().BeGreaterThan(0);
+    }
 }
 
